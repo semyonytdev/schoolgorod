@@ -1,4 +1,10 @@
 {
+  "item.schoolgorod.student_spawn_egg": "Student Spawn Egg",
+  "item.schoolgorod.teacher_spawn_egg": "Teacher Spawn Egg",
+  "item.schoolgorod.director_spawn_egg": "Director Spawn Egg",
+  "entity.schoolgorod.student": "Student",
+  "entity.schoolgorod.teacher": "Teacher",
+  "entity.schoolgorod.director": "Principal",
   "item.schoolgorod.pink_shard": "Pink Shard",
   "item.schoolgorod.teacher_template": "Smithing Template: Teacher",
   "item.schoolgorod.cherry_template": "Smithing Template: Cherry",
@@ -6,5 +12,6 @@
   "block.schoolgorod.pink_sculk": "Pink Sculk",
   "trim_pattern.schoolgorod.teacher": "Teacher",
   "trim_pattern.schoolgorod.cherry": "Cherry",
-  "trim_pattern.schoolgorod.boss": "Main Boss"
+  "trim_pattern.schoolgorod.boss": "Main Boss",
+  "subtitles.schoolgorod.school_theme": "Schoolgorod music"
 }
