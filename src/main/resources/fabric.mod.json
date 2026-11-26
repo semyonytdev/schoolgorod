@@ -7,6 +7,9 @@
   "authors": ["Семён Гридин"],
   "license": "MIT",
   "environment": "*",
-  "entrypoints": { "main": ["com.schoolgorod.SchoolMod"] },
+  "entrypoints": {
+    "main": ["com.schoolgorod.SchoolMod"],
+    "client": ["com.schoolgorod.SchoolClient"]
+  },
   "depends": { "fabricloader": ">=0.18.1", "minecraft": "~1.21.11", "java": ">=21", "fabric-api": "*" }
 }

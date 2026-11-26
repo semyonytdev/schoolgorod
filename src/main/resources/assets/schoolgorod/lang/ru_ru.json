@@ -1,4 +1,10 @@
 {
+  "item.schoolgorod.student_spawn_egg": "Яйцо ученика",
+  "item.schoolgorod.teacher_spawn_egg": "Яйцо учителя",
+  "item.schoolgorod.director_spawn_egg": "Яйцо директора",
+  "entity.schoolgorod.student": "Ученик",
+  "entity.schoolgorod.teacher": "Учитель",
+  "entity.schoolgorod.director": "Директор",
   "item.schoolgorod.pink_shard": "Розовый осколок",
   "item.schoolgorod.teacher_template": "Кузнечный шаблон: Учитель",
   "item.schoolgorod.cherry_template": "Кузнечный шаблон: Вишня",
