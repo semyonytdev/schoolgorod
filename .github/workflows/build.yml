@@ -18,6 +18,7 @@ jobs:
           gradle-version: current
       - run: gradle build --no-daemon
       - uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
         with:
           tag_name: school-${{ github.run_number }}
           name: schoolgorod (сборка ${{ github.run_number }})
