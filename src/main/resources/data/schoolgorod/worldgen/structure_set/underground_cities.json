@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 19871127,
+    "separation": 20,
+    "spacing": 100
+  },
+  "structures": [
+    {
+      "structure": "schoolgorod:underground_city",
+      "weight": 1
+    }
+  ]
+}

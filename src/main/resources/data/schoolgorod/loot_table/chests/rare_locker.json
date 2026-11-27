@@ -2,25 +2,138 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": { "min": 2, "max": 4 },
+      "rolls": {
+        "min": 2,
+        "max": 4
+      },
       "entries": [
-        { "type": "minecraft:item", "name": "schoolgorod:pink_shard", "weight": 14 },
-        { "type": "minecraft:item", "name": "minecraft:iron_chestplate", "weight": 5 },
-        { "type": "minecraft:item", "name": "minecraft:iron_leggings", "weight": 5 },
-        { "type": "minecraft:item", "name": "minecraft:iron_helmet", "weight": 5 },
-        { "type": "minecraft:item", "name": "minecraft:enchanted_book", "weight": 6 },
-        { "type": "minecraft:item", "name": "minecraft:music_disc_pigstep", "weight": 2 },
-        { "type": "minecraft:item", "name": "minecraft:spruce_planks", "weight": 12 },
-        { "type": "minecraft:item", "name": "minecraft:gold_ingot", "weight": 10 },
-        { "type": "minecraft:item", "name": "minecraft:iron_ingot", "weight": 10 },
-        { "type": "minecraft:item", "name": "minecraft:diamond_pickaxe", "weight": 2 },
-        { "type": "minecraft:item", "name": "minecraft:diamond_sword", "weight": 2 }
+        {
+          "type": "minecraft:item",
+          "name": "schoolgorod:pink_shard",
+          "weight": 14
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_leggings",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:enchanted_book",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:music_disc_pigstep",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:spruce_planks",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_pickaxe",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_sword",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_chestplate",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:enchantments": {
+                  "levels": {
+                    "minecraft:protection": 2
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_leggings",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:enchantments": {
+                  "levels": {
+                    "minecraft:protection": 3
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_helmet",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:enchantments": {
+                  "levels": {
+                    "minecraft:mending": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:music_disc_tears",
+          "weight": 2
+        }
       ]
     },
     {
       "rolls": 1,
-      "entries": [ { "type": "minecraft:item", "name": "minecraft:enchanted_golden_apple" } ],
-      "conditions": [ { "condition": "minecraft:random_chance", "chance": 0.05 } ]
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:enchanted_golden_apple"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.05
+        }
+      ]
     }
   ]
 }

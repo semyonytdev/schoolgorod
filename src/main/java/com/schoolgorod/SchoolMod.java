@@ -1,5 +1,6 @@
 package com.schoolgorod;
 
+import com.schoolgorod.block.PinkShriekerBlock;
 import com.schoolgorod.entity.DirectorEntity;
 import com.schoolgorod.entity.StudentEntity;
 import com.schoolgorod.entity.TeacherEntity;
@@ -8,19 +9,17 @@ import java.util.function.Function;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -30,7 +29,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.util.valueproviders.ConstantInt;
 
+/** Школа-город: этап 1 и последующие игровые элементы. */
 public class SchoolMod implements ModInitializer {
 	public static final String MOD_ID = "schoolgorod";
 
@@ -42,27 +43,34 @@ public class SchoolMod implements ModInitializer {
 	public static final Block PINK_SCULK = registerBlock("pink_sculk");
 	public static final Item PINK_SCULK_ITEM = registerBlockItem("pink_sculk", PINK_SCULK);
 
-	public static final EntityType<StudentEntity> STUDENT = Registry.register(
-			BuiltInRegistries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MOD_ID, "student"),
-			FabricEntityTypeBuilder.create(MobCategory.MONSTER, StudentEntity::new)
-					.dimensions(EntityDimensions.fixed(0.6F, 1.95F)).build());
-	public static final EntityType<TeacherEntity> TEACHER = Registry.register(
-			BuiltInRegistries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MOD_ID, "teacher"),
-			FabricEntityTypeBuilder.create(MobCategory.MONSTER, TeacherEntity::new)
-					.dimensions(EntityDimensions.fixed(0.6F, 1.95F)).build());
-	public static final EntityType<DirectorEntity> DIRECTOR = Registry.register(
-			BuiltInRegistries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MOD_ID, "director"),
-			FabricEntityTypeBuilder.create(MobCategory.MONSTER, DirectorEntity::new)
-					.dimensions(EntityDimensions.fixed(0.9F, 2.9F)).build());
+	public static final Block PINK_SHRIEKER = registerPinkShrieker();
+	public static final Item PINK_SHRIEKER_ITEM = registerBlockItem("pink_shrieker", PINK_SHRIEKER);
 
-	public static final Item STUDENT_SPAWN_EGG = registerSpawnEgg("student_spawn_egg", STUDENT, 0xD6A9B8, 0x4B2638);
-	public static final Item TEACHER_SPAWN_EGG = registerSpawnEgg("teacher_spawn_egg", TEACHER, 0x7B465D, 0x271724);
-	public static final Item DIRECTOR_SPAWN_EGG = registerSpawnEgg("director_spawn_egg", DIRECTOR, 0xD83D91, 0x17121D);
+	public static final EntityType<StudentEntity> STUDENT = registerEntity(
+			"student", StudentEntity::new, 0.6F, 1.95F);
+	public static final EntityType<TeacherEntity> TEACHER = registerEntity(
+			"teacher", TeacherEntity::new, 0.6F, 1.95F);
+	public static final EntityType<DirectorEntity> DIRECTOR = registerEntity(
+			"director", DirectorEntity::new, 0.9F, 2.9F);
 
-	private static Item registerSpawnEgg(String name, EntityType<? extends Zombie> entityType, int primary, int secondary) {
+	public static final Item STUDENT_SPAWN_EGG = registerSpawnEgg("student_spawn_egg", STUDENT);
+	public static final Item TEACHER_SPAWN_EGG = registerSpawnEgg("teacher_spawn_egg", TEACHER);
+	public static final Item DIRECTOR_SPAWN_EGG = registerSpawnEgg("director_spawn_egg", DIRECTOR);
+
+	private static <T extends Entity> EntityType<T> registerEntity(
+			String name, EntityType.EntityFactory<T> factory, float width, float height) {
+		ResourceKey<EntityType<?>> key = ResourceKey.create(
+				Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MOD_ID, name));
+		EntityType<T> type = EntityType.Builder.of(factory, MobCategory.MONSTER)
+				.sized(width, height)
+				.build(key);
+		return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, type);
+	}
+
+	private static Item registerSpawnEgg(String name, EntityType<? extends Mob> entityType) {
 		ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, name));
-		Item item = new SpawnEggItem(entityType, primary, secondary, new Item.Properties().setId(key));
-		return Registry.register(BuiltInRegistries.ITEM, key, item);
+		Item.Properties properties = new Item.Properties().setId(key).spawnEgg(entityType);
+		return Registry.register(BuiltInRegistries.ITEM, key, new SpawnEggItem(properties));
 	}
 
 	private static <T extends Item> T registerItem(String name, Function<Item.Properties, T> factory, Item.Properties props) {
@@ -74,6 +82,12 @@ public class SchoolMod implements ModInitializer {
 	private static Block registerBlock(String name) {
 		ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, name));
 		Block block = new DropExperienceBlock(ConstantInt.of(2), BlockBehaviour.Properties.ofFullCopy(Blocks.SCULK).setId(key));
+		return Registry.register(BuiltInRegistries.BLOCK, key, block);
+	}
+
+	private static Block registerPinkShrieker() {
+		ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, "pink_shrieker"));
+		Block block = new PinkShriekerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SCULK_SHRIEKER).setId(key));
 		return Registry.register(BuiltInRegistries.BLOCK, key, block);
 	}
 
@@ -100,6 +114,9 @@ public class SchoolMod implements ModInitializer {
 			entries.accept(TEACHER_SPAWN_EGG);
 			entries.accept(DIRECTOR_SPAWN_EGG);
 		});
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> entries.accept(PINK_SCULK_ITEM));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+			entries.accept(PINK_SCULK_ITEM);
+			entries.accept(PINK_SHRIEKER_ITEM);
+		});
 	}
 }
