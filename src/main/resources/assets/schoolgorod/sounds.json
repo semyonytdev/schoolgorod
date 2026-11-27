@@ -1,8 +1,0 @@
-{
-  "school_theme": {
-    "sounds": [
-      { "name": "minecraft:music_disc.otherside", "type": "event" }
-    ],
-    "subtitle": "subtitles.schoolgorod.school_theme"
-  }
-}
