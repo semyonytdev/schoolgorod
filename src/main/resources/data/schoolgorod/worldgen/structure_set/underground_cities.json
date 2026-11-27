@@ -1,9 +1,9 @@
 {
   "placement": {
-    "type": "minecraft:random_spread",
-    "salt": 19871127,
-    "separation": 20,
-    "spacing": 100
+    "type": "minecraft:concentric_rings",
+    "count": 1,
+    "distance": 32,
+    "spread": 1
   },
   "structures": [
     {
