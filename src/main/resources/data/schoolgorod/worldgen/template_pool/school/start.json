@@ -2,7 +2,7 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 98,
+      "weight": 94,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "schoolgorod:school/building",
@@ -14,7 +14,25 @@
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "schoolgorod:school/building_nuze",
+        "location": "schoolgorod:school/building_nuze_1",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "schoolgorod:school/building_nuze_2",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "schoolgorod:school/building_nuze_3",
         "processors": "minecraft:empty",
         "projection": "rigid"
       }
