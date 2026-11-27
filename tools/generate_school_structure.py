@@ -27,7 +27,7 @@ block_names=[
 "minecraft:oak_stairs","minecraft:polished_blackstone","schoolgorod:pink_shrieker"
 ]
 palette=[compound([st("Name",n)]) for n in block_names]
-def make(include_nuze):
+def make(stash_stall=0):
     blocks={}
     def put(x,y,z,state,loot=None):
         if 0<=x<W and 0<=y<H and 0<=z<D:
@@ -59,13 +59,14 @@ def make(include_nuze):
     for y in range(1,29):
         put(12,y,10,12); put(12,y,14,12)
         put(11,y,12,14); put(13,y,12,14)
-    # NUZE washroom with stalls; rare 2% template variant gets the stash chest
+    # NUZE washroom with three independently weighted 2% stash variants
     fill(2,14,2,9,14,8,7)
     for x in (4,6,8):
         for z in range(3,8): put(x,15,z,14)
         put(x,15,4,0); put(x,15,7,0)
-    if include_nuze:
-        put(8,15,7,6,"schoolgorod:chests/bathroom_stash")
+    if stash_stall in (1, 2, 3):
+        stall_x = {1: 4, 2: 6, 3: 8}[stash_stall]
+        put(stall_x,15,7,6,"schoolgorod:chests/bathroom_stash")
     # Underground bunker and Director arena
     fill(3,1,3,21,5,21,0)
     for x in range(3,22): put(x,1,3,2); put(x,1,21,2)
@@ -110,9 +111,9 @@ def make(include_nuze):
         lt("entities",10,entities)
     ])
     return gzip.compress(tag(10,"",root),compresslevel=9)
-for suffix,enabled in (("building",False),("building_nuze",True)):
+for suffix,stall in (("building",0),("building_nuze_1",1),("building_nuze_2",2),("building_nuze_3",3)):
     out=f"build/generated/schoolgorod/data/schoolgorod/structures/school/{suffix}.nbt"
     os.makedirs(os.path.dirname(out),exist_ok=True)
-    payload=make(enabled)
+    payload=make(stall)
     with open(out,"wb") as f: f.write(payload)
     print(f"{suffix}: {len(payload)} bytes")
