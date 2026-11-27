@@ -22,7 +22,9 @@ tasks.register("generateSchoolStructure", Exec) {
 	inputs.file("tools/generate_school_structure.py")
 	outputs.files(
 		generatedSchoolResources.map { it.file("data/schoolgorod/structures/school/building.nbt") },
-		generatedSchoolResources.map { it.file("data/schoolgorod/structures/school/building_nuze.nbt") }
+		generatedSchoolResources.map { it.file("data/schoolgorod/structures/school/building_nuze_1.nbt") },
+		generatedSchoolResources.map { it.file("data/schoolgorod/structures/school/building_nuze_2.nbt") },
+		generatedSchoolResources.map { it.file("data/schoolgorod/structures/school/building_nuze_3.nbt") }
 	)
 	commandLine("python3", "tools/generate_school_structure.py")
 }
