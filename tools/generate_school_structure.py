@@ -88,7 +88,7 @@ def make(include_nuze):
         block_entries.append(compound(fields))
     # Place the Director in the lower arena as a structure entity.
     entity=compound([
-        doubles("pos",[12.5,2.0,12.5]),
+        lt("pos",6,[struct.pack(">d",12.5),struct.pack(">d",2.0),struct.pack(">d",12.5)]),
         ia("blockPos",[12,2,12]),
         ct("nbt",[st("id","schoolgorod:director"),lt("Pos",6,[struct.pack(">d",12.5),struct.pack(">d",2.0),struct.pack(">d",12.5)]),lt("Rotation",5,[struct.pack(">f",0.0),struct.pack(">f",0.0)])])
     ])
