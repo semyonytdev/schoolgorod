@@ -25,7 +25,8 @@ jobs:
           name: schoolgorod-1.21.11
           path: build/libs/schoolgorod-0.1.0.jar
           if-no-files-found: error
-      - uses: softprops/action-gh-release@v2
+      - name: Ограничить публикацию релизов веткой main
+        uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
           tag_name: school-${{ github.run_number }}
