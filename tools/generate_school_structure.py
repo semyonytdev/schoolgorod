@@ -18,7 +18,7 @@ def floats(n,values): return tag(5,n,integer(len(values))+b"".join(struct.pack("
 def ct(n,items): return tag(10,n,compound(items))
 def lt(n,t,items): return tag(9,n,bytes([t])+integer(len(items))+b"".join(items))
 
-W,H,D=25,23,25
+W,H,D=25,30,25
 block_names=[
 "minecraft:air","minecraft:deepslate_bricks","minecraft:polished_blackstone_bricks",
 "minecraft:dark_oak_planks","minecraft:glass","minecraft:lantern","minecraft:chest",
@@ -37,11 +37,11 @@ def make(include_nuze):
             for z in range(z1,z2+1):
                 for x in range(x1,x2+1): put(x,y,z,state)
     # Outer shell and three storeys
-    for fy in (0,7,14,22): fill(0,fy,0,24,fy,24,1)
-    for y in range(1,22):
+    for fy in (6,13,20,29): fill(0,fy,0,24,fy,24,1)
+    for y in range(1,29):
         for x in range(25): put(x,y,0,2); put(x,y,24,2)
         for z in range(25): put(0,y,z,2); put(24,y,z,2)
-    for fy in (1,8,15):
+    for fy in (7,14,21):
         for y in range(fy,fy+6):
             for x in (5,6,7,17,18,19): put(x,y,0,4); put(x,y,24,4)
             for z in (5,6,7,17,18,19): put(0,y,z,4); put(24,y,z,4)
@@ -55,16 +55,16 @@ def make(include_nuze):
         put(5,fy,5,6,"schoolgorod:chests/classroom")
         put(19,fy,5,6,"schoolgorod:chests/locker")
     # Vertical ladder shaft linking all floors
-    for y in range(1,22):
+    for y in range(1,29):
         put(12,y,10,12); put(12,y,14,12)
         put(11,y,12,14); put(13,y,12,14)
     # NUZE washroom with stalls; rare 2% template variant gets the stash chest
-    fill(2,8,2,9,8,8,7)
+    fill(2,14,2,9,14,8,7)
     for x in (4,6,8):
-        for z in range(3,8): put(x,9,z,14)
-        put(x,9,4,0); put(x,9,7,0)
+        for z in range(3,8): put(x,15,z,14)
+        put(x,15,4,0); put(x,15,7,0)
     if include_nuze:
-        put(8,9,7,6,"schoolgorod:chests/bathroom_stash")
+        put(8,15,7,6,"schoolgorod:chests/bathroom_stash")
     # Underground bunker and Director arena
     fill(3,1,3,21,5,21,0)
     for x in range(3,22): put(x,1,3,2); put(x,1,21,2)
@@ -77,7 +77,7 @@ def make(include_nuze):
     put(8,20,8,6,"schoolgorod:chests/abandoned_class")
     put(20,15,5,6,"schoolgorod:chests/director_cache")
     # Jigsaw anchor for the structure start pool
-    put(12,22,12,13)
+    put(12,29,12,13)
     block_entries=[]
     for (x,y,z),(state,loot) in blocks.items():
         fields=[ia("pos",[x,y,z]),it("state",state)]
