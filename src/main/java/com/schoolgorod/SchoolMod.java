@@ -1,5 +1,6 @@
 package com.schoolgorod;
 
+import com.schoolgorod.block.PinkShriekerBlock;
 import com.schoolgorod.entity.DirectorEntity;
 import com.schoolgorod.entity.StudentEntity;
 import com.schoolgorod.entity.TeacherEntity;
@@ -42,6 +43,9 @@ public class SchoolMod implements ModInitializer {
 	public static final Block PINK_SCULK = registerBlock("pink_sculk");
 	public static final Item PINK_SCULK_ITEM = registerBlockItem("pink_sculk", PINK_SCULK);
 
+	public static final Block PINK_SHRIEKER = registerPinkShrieker();
+	public static final Item PINK_SHRIEKER_ITEM = registerBlockItem("pink_shrieker", PINK_SHRIEKER);
+
 	public static final EntityType<StudentEntity> STUDENT = registerEntity(
 			"student", StudentEntity::new, 0.6F, 1.95F);
 	public static final EntityType<TeacherEntity> TEACHER = registerEntity(
@@ -81,6 +85,12 @@ public class SchoolMod implements ModInitializer {
 		return Registry.register(BuiltInRegistries.BLOCK, key, block);
 	}
 
+	private static Block registerPinkShrieker() {
+		ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, "pink_shrieker"));
+		Block block = new PinkShriekerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SCULK_SHRIEKER).setId(key));
+		return Registry.register(BuiltInRegistries.BLOCK, key, block);
+	}
+
 	private static Item registerBlockItem(String name, Block block) {
 		ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, name));
 		BlockItem item = new BlockItem(block, new Item.Properties().setId(key).useBlockDescriptionPrefix().rarity(Rarity.EPIC));
@@ -104,6 +114,9 @@ public class SchoolMod implements ModInitializer {
 			entries.accept(TEACHER_SPAWN_EGG);
 			entries.accept(DIRECTOR_SPAWN_EGG);
 		});
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> entries.accept(PINK_SCULK_ITEM));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+			entries.accept(PINK_SCULK_ITEM);
+			entries.accept(PINK_SHRIEKER_ITEM);
+		});
 	}
 }
