@@ -35,7 +35,7 @@ public class PinkShriekerBlock extends Block {
 		AABB range = AABB.ofSize(pos.getCenter(), 16.0D, 8.0D, 16.0D);
 		for (Player target : level.getEntitiesOfClass(Player.class, range)) {
 			if (target.distanceToSqr(pos.getCenter()) <= 64.0D) {
-				target.hurtServer(serverLevel, serverLevel.damageSources().sonicBoom(null), 12.0F);
+				target.hurtServer(serverLevel, serverLevel.damageSources().sonicBoom(player), 12.0F);
 			}
 		}
 
