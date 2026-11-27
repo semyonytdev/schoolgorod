@@ -33,7 +33,7 @@ public class DirectorEntity extends Warden {
 		super.tick();
 		bossEvent.setProgress(Math.max(0.0F, Math.min(1.0F, getHealth() / getMaxHealth())));
 		if (!level().isClientSide() && tickCount % MUSIC_LOOP_TICKS == 1) {
-			playSound(SoundEvents.MUSIC_DISC_OTHERSIDE, 1.0F, 1.0F);
+			playSound(SoundEvents.MUSIC_DISC_OTHERSIDE.value(), 1.0F, 1.0F);
 		}
 	}
 
