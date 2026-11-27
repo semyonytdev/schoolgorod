@@ -24,7 +24,7 @@ block_names=[
 "minecraft:dark_oak_planks","minecraft:glass","minecraft:lantern","minecraft:chest",
 "minecraft:stone_bricks","minecraft:bookshelf","minecraft:lectern","minecraft:sculk",
 "minecraft:polished_deepslate","minecraft:ladder","minecraft:jigsaw","minecraft:iron_bars",
-"minecraft:oak_stairs","minecraft:polished_blackstone"
+"minecraft:oak_stairs","minecraft:polished_blackstone","schoolgorod:pink_shrieker"
 ]
 palette=[compound([st("Name",n)]) for n in block_names]
 def make(include_nuze):
@@ -86,18 +86,27 @@ def make(include_nuze):
         if state==13:
             fields.append(ct("nbt",[st("id","minecraft:jigsaw"),st("name","schoolgorod:anchor"),st("target","schoolgorod:anchor"),st("pool","minecraft:empty"),st("final_state","minecraft:air"),st("joint","rollable")]))
         block_entries.append(compound(fields))
-    # Place the Director in the lower arena as a structure entity.
-    entity=compound([
-        lt("pos",6,[struct.pack(">d",12.5),struct.pack(">d",2.0),struct.pack(">d",12.5)]),
-        ia("blockPos",[12,2,12]),
-        ct("nbt",[st("id","schoolgorod:director"),lt("Pos",6,[struct.pack(">d",12.5),struct.pack(">d",2.0),struct.pack(">d",12.5)]),lt("Rotation",5,[struct.pack(">f",0.0),struct.pack(">f",0.0)])])
-    ])
+    # Place the Director in the lower arena and two hostile students on each storey.
+    def make_entity(entity_id, x, y, z, yaw=0.0):
+        return compound([
+            lt("pos",6,[struct.pack(">d",x),struct.pack(">d",y),struct.pack(">d",z)]),
+            ia("blockPos",[int(x),int(y),int(z)]),
+            ct("nbt",[
+                st("id",entity_id),
+                lt("Pos",6,[struct.pack(">d",x),struct.pack(">d",y),struct.pack(">d",z)]),
+                lt("Rotation",5,[struct.pack(">f",yaw),struct.pack(">f",0.0)])
+            ])
+        ])
+    entities=[make_entity("schoolgorod:director",12.5,2.0,12.5)]
+    for fy in (7,14,21):
+        entities.append(make_entity("schoolgorod:student",8.5,fy+1.0,7.5,90.0))
+        entities.append(make_entity("schoolgorod:student",16.5,fy+1.0,17.5,-90.0))
     root=compound([
         it("DataVersion",4671),
         ia("size",[W,H,D]),
         lt("palette",10,palette),
         lt("blocks",10,block_entries),
-        lt("entities",10,[entity])
+        lt("entities",10,entities)
     ])
     return gzip.compress(tag(10,"",root),compresslevel=9)
 for suffix,enabled in (("building",False),("building_nuze",True)):
