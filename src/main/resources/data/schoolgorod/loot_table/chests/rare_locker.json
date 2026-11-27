@@ -112,6 +112,11 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:music_disc_tears",
+          "weight": 2
         }
       ]
     },
