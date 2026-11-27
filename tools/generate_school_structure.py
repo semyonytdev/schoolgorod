@@ -54,6 +54,7 @@ def make(include_nuze):
             put(x,fy+1,z,8); put(x,fy+1,z+1,9); put(x,fy+3,z,5)
         put(5,fy,5,6,"schoolgorod:chests/classroom")
         put(19,fy,5,6,"schoolgorod:chests/locker")
+        put(12,fy+1,18,17)  # pink shrieker in the corridor
     # Vertical ladder shaft linking all floors
     for y in range(1,29):
         put(12,y,10,12); put(12,y,14,12)
